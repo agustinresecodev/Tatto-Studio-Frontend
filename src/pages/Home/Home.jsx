@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CustomInput } from "../../components/CustomInput/CustomInput";
+import { HomeCarousel } from "../../components/HomeCarousel/HomeCarousel";
 
 
 export const Home = () => {
@@ -33,34 +34,7 @@ export const Home = () => {
   
   return (
     <>
-      <h1>SOY HOME</h1>
-      <h1>Vite + React</h1>
-      <h2>Este es el subtítulo</h2>
-      <div className="card">
-        <button onClick={addCountButtonHandler}>count is {count}</button>
-        <input
-          type="text"
-          name="inputDePrueba"
-          onChange={(event) => inputHandler(event)}
-        ></input>
-        <CustomInput
-        typeProp="email"
-        nameProp="emailInput"
-        placeholderProp="introduce tu email"
-        handlerProp={inputHandler} />
-        <CustomInput
-        typeProp="password"
-        nameProp="passwordInput"
-        placeholderProp="introduce tu contraseña"
-        handlerProp={inputHandler} />
-        
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <HomeCarousel />
     </>
   );
 };
