@@ -1,0 +1,31 @@
+@font-face {
+    font-family: 'Angel_wish';
+    src: url(../../assets/fonts/Angel_wish.ttf);
+}
+
+.Navbar
+
+#Navbar {
+    background-color: rgba(33, 37, 41, 1);
+    font-family: 'Angel_wish';
+    font-size: 1em;
+    color: white;
+}
+
+a,span{
+    color: white;
+    font-family: 'Angel_wish';
+    font-size: 1em;
+}
+
+a:hover{
+    color: white;
+}
+
+#NavFather{
+    color: white;
+}
+
+.Container{
+    border-radius: 1em ;
+}

@@ -1,0 +1,16 @@
+#HomeCarousel img{
+    border-radius: 1em;
+    margin-top: 1em;
+    
+}
+
+#HomeCarousel h3{
+    color: rgb(255, 255, 255);
+    -webkit-text-stroke-width: 1px;
+    -webkit-text-stroke-color: rgb(19, 42, 48);
+}
+
+#HomeCarousel p{
+    color: rgb(255, 255, 255);
+    
+}

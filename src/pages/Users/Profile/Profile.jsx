@@ -1,9 +1,15 @@
-export const Profile = () => {
+// Note: Profile Page
+import { useEffect, useState } from "react";
+import { bringProfileCall } from "../../../services/apiCall";
+import { UserProfile } from "../../../components/UserProfile/UserProfile";
 
+export const Profile = () => {
+       
     return (
         <>
-            <h1>Aqui Profile Representando</h1>
-            
+            <UserProfile/>
         </>
     )
 }
+
+export default Profile;
