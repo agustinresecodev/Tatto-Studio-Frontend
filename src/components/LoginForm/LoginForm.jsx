@@ -57,52 +57,36 @@ export const LoginForm = () => {
     };
     return (
         <>
-        <Container id='LoginForm'>
-            <Form>
-                <Form.Group className="mb-3" controlId="formBasicEmail">
+          <div className="container" id="RegisterFormDiv">
+            <div className="row">
+                <div className="col-md-12">
+                    <h2>Login</h2>
+                    <form >
+                        
+                        
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input type="email" className="form-control" name="email" onChange={inputHandler}/>
+                        </div>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input type="password" className="form-control" name="password" onChange={inputHandler}/>
+                        </div>
+                        
+                        <ButtonC
+                            title={"Login"}
+                            className={"regularButtonClass"}
+                            functionEmit={loginMe}
+                        />
+                    </form>
+                </div>
+            </div>
+            <div className="row">
+                Already registered? Then <a href="/login">Login </a>
+            </div>
 
-                    <Form.Label>
-                        Email address
-                    </Form.Label>
-                    
-                    <CustomInput 
-                        nameProp="email"
-                        typeProp="email" 
-                        placeholderProp="Enter email"
-                        handlerProp={(e)=>inputHandler(e)} />
-                    
-                    <Form.Text 
-                        className="text-muted">
-                        We'll never share your email with anyone else.
-                    </Form.Text>
-                </Form.Group>
-
-                <Form.Group className="mb-3" controlId="formBasicPassword">
-                    <Form.Label>
-                        Password
-                    </Form.Label>
-                    <CustomInput
-                        nameProp="password" 
-                        typeProp="Password" 
-                        placeholderProp="Enter email"
-                        handlerProp={(e)=>inputHandler(e)} />
-                </Form.Group>
-      
-                <Form.Group 
-                    className="mb-3" 
-                    controlId="formBasicCheckbox">
-                    <Form.Check 
-                        type="checkbox" 
-                        label="Check me out" />
-                </Form.Group>
-                <ButtonC
-                    title={"log me!"}
-                    className={"regularButtonClass"}
-                    functionEmit={loginMe}
-                />
-                <pre>{JSON.stringify(credentials, null, 2)}</pre>
-            </Form>
-        </Container>
+            
+          </div>
         </>
     )
 }

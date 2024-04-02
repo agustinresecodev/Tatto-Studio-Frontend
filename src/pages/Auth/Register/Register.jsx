@@ -1,8 +1,10 @@
+import RegisterForm from "../../../components/RegisterForm/RegisterForm"
+
 export const Register = () => {
 
     return (
         <>
-            <h1>Login Aqui Register Representando</h1>
+            <RegisterForm />
             
         </>
     )

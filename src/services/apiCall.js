@@ -8,8 +8,9 @@ const baseURL = "http://localhost:3000/api/";
 export const registerNewUserCall = async (credentials) => {
   try {
     
-    return  response = await axios.post(`${baseURL}auth/register`, credentials);
-    
+   const response = await axios.post(`${baseURL}auth/register`, credentials);
+   return response; 
+
   } catch (error) {
     return error;
   }
@@ -40,6 +41,21 @@ export const bringProfileCall = async (token) => {
    
     
     const res =  await axios.get(`${baseURL}users/profile`, config);
+    
+    return res
+}
+
+
+// Get all users
+export const bringAllUsersCall = async (token) => {
+    const config ={
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+   
+    
+    const res =  await axios.get(`${baseURL}users/all`, config);
     
     return res
 }
