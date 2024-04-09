@@ -59,3 +59,28 @@ export const bringAllUsersCall = async (token) => {
     
     return res
 }
+
+// Get all appointments
+export const bringMyAppointmentsCall = async (token) => {
+    const config ={
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+
+    const res =  await axios.get(`${baseURL}jobdates/`, config);
+    
+    return res
+}
+
+export const updateProfileCall = async (data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const res = await axios.put(`${baseURL}users/profile/update`, data, config)
+ 
+  return res
+}

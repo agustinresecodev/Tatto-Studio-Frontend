@@ -3,7 +3,7 @@ import { Login } from "../Auth/Login/Login"
 import { Home } from "../Home/Home"
 import { Register } from "../Auth/Register/Register"
 import { Profile } from "../Users/Profile/Profile"
-import { Jobdates } from "../Users/Jobdates/Jobdates"
+import { UserJobdates } from "../Users/Jobdates/Jobdates"
 
 export const Body = () => {
     return(
@@ -13,7 +13,7 @@ export const Body = () => {
             <Route path="/" element={<Home />} />
             <Route path="/profile" element={<Profile />} /> 
             <Route path="/register" element={<Register/>} />
-            <Route path="/appointments" element={<Jobdates/>} />
+            <Route path="/appointments" element={<UserJobdates/>} />
         </Routes>
     )
 }
