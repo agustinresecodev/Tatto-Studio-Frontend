@@ -1,6 +1,7 @@
 
-import { bringAllAppointmentsCall } from "../../../services/apiCall";
-
+import { bringMyAppointmentsCall } from "../../../services/apiCall";
+import { useEffect, useState } from "react";
+import "./Jobdates.css";
 
 export const UserJobdates = () =>{
 
@@ -9,59 +10,60 @@ export const UserJobdates = () =>{
     const [jobdates, setJobdates] = useState([]);
 
     useEffect(()=>{
+        setTimeout(() => {
         const fetchJobdates = async () => {
-            const response = await bringAllAppointmentsCall(myPassport.token);
+            const response = await bringMyAppointmentsCall(myPassport.token);
             setJobdates(response.data)
+            
         }
         fetchJobdates()
-    })
+        console.log(jobdates);
+    },3000);
     
-
+    
+},[])
+    
     return(
-        ( response ? (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <h1>Jobdates</h1>
-                        <table className="table table-striped">
-                            <thead>
-                                <tr>
-                                    <th>Jobdate</th>
-                                    <th>Day</th>
-                                    <th>Artist</th>
-                                    <th>Client</th>
-                                    <th>Description</th>
-                                    <th>Price</th>
-                                    
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {jobdates.map((jobdate, index) => (
-                                    <tr key={index}>
-                                        <td>{jobdate.id}</td>
-                                        <td>{jobdate.day_date}</td>
-                                        <td>{jobdate.artist_id}</td>
-                                        <td>{jobdate.client_id}</td>
-                                        <td>{jobdate.description}</td>
-                                        <td>{jobdate.price}</td>
-                                                                             
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+
+        <div className="container" id="tableContainer">
+            <div className="row">
+                <div className="col-md-12">
+                    
+                    {jobdates.map((element) => {
+                        return(
+                        <div key={element.id} className="row tableRow" >
+                            <div key={element.id+1} className="row">
+                                <div  className="col-md-12">
+                                    Fecha: {element.day_date}
+                                </div>
+                                <div key={element.id+2} className="col-md-4">
+                                    Cliente: {element.client.user.firstName}
+                                </div>
+                                <div key={element.id+3} className="col-md-4">
+                                    Telefono: {element.client.user.phone}
+                                </div>
+                                <div key={element.id+4} className="col-md-6">
+                                    email: {element.client.user.email}
+                                </div>
+                                
+                            </div>
+                            <div key={element.id+5} className="row">
+                            <div key={element.id+5} className="col-md-6">
+                                    boton editar
+                                </div>
+                                <div key={element.id+6} className="col-md-6">
+                                    boton eliminar
+                                </div>
+                            </div>
+                        </div>   
+                        )
+                        
+                    })
+                        
+                    }
                 </div>
             </div>
-        ) : (
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-12">
-                        <h1>Loading...</h1>
-                    </div>
-                </div>
-            </div>
-        ))
-                
-        
+        </div>
     )
+
 }

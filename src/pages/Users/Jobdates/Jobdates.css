@@ -1,0 +1,27 @@
+#tableContainer{
+    background-color: rgb(19, 42, 48, 0.5);
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+    margin-top: 1em;
+    padding: 1em;
+    border-radius: 1em;
+    backdrop-filter: blur(5px);
+    color:white;
+    border-top: 1px solid white;
+    border-right: 1px solid white;
+    border-bottom: 1px solid white;
+    border-left: 1px solid white;
+}
+
+.tableRow{
+    border: solid 0.1em black;
+    border-color: black;
+    background-color: rgb(255, 236, 196);
+    margin-bottom: 2em;
+    color: #000000;
+    border-radius: 1em;
+    box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
+}
+
+.text-muted{
+    color: white;
+}

@@ -68,7 +68,7 @@ export const bringMyAppointmentsCall = async (token) => {
         }
     }
 
-    const res =  await axios.get(`${baseURL}jobdates/`, config);
+    const res =  await axios.get(`${baseURL}jobdates/artist/jobdates`, config);
     
     return res
 }

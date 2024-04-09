@@ -1,12 +1,14 @@
 // Note: Profile Page
 
+import UserProfile from "../../../components/UserProfile/UserProfile";
+
 
 
 export const Profile = () => {
        
     return (
         <>
-            <h1>Profile Page</h1>
+            <UserProfile />
         </>
     )
 }
