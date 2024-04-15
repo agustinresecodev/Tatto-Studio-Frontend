@@ -2,7 +2,7 @@ import {createSlice} from '@reduxjs/toolkit';
 
 // creamos nuestro pasillo para el usuario (slice de user)
 
-export const userSlice = createSlice({
+export const userSlicer = createSlice({
     name: 'user',           //nombre del slice
     initialState: {         //estado inicial
         token: "",
@@ -41,8 +41,10 @@ export const userSlice = createSlice({
 })
 
 // exportamos las acciones a las que se accedera desde el useDispatch para escribir en el almacen
-export const {login, logout} = userSlice.actions;
+export const {login, logout} = userSlicer.actions;
 
 // definimos y exportamos los metodos que nos permitirán venir al almacen a leer los datos
 export const getUserData = (state) => state.user
+
+// exportamos el pasillo
 export default userSlicer.reducer;
