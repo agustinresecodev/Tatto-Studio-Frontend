@@ -1,13 +1,12 @@
-import { Container } from 'react-bootstrap';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import './LoginForm.css';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { CustomInput } from '../CustomInput/CustomInput';
 import { ButtonC } from '../ButtonC/ButtonC';
 import { loginCall } from '../../services/apiCall';
 import { decodeToken } from "react-jwt";
+import {useDispatch, useSelector} from 'react-redux';
+import {login} from '../Slicers/userSlicer';
+
 
 
 export const LoginForm = () => {
@@ -18,6 +17,7 @@ export const LoginForm = () => {
       password: "",
     });
   
+    const dispatch = useDispatch();
     const [msg, setMsg] = useState("");
   
     const inputHandler = (e) => {
@@ -33,7 +33,7 @@ export const LoginForm = () => {
       //esta será la función que desencadenará el login...
       const answer = await loginCall(credentials);
       
-      console.log(answer);
+      //console.log(answer);
       if (answer.data.token) {
         //decodificamos el token...
         const uDecodificado = decodeToken(answer.data.token);
@@ -44,9 +44,13 @@ export const LoginForm = () => {
           decodificado: uDecodificado,
         };
   
-        console.log(passport);
+        //llamamos al almacen de Redux dandole la instruccion de que realice un login con nuestro passport
+        //dentro de la funcion "login" de userSlice, ese passport se recibe a traves del action.payload
+        dispatch(login(passport));
+
+
         //Guardaríamos passport bien en RDX o session/localStorage si no disponemos del primero
-        sessionStorage.setItem("passport", JSON.stringify(passport))
+        //sessionStorage.setItem("passport", JSON.stringify(passport))
         
         setMsg(`${uDecodificado.name}, bienvenid@ de nuevo.`);
   

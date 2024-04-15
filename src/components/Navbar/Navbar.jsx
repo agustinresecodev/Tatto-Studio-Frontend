@@ -16,6 +16,7 @@ const NavbarTest = () => {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/profile">Profile</Nav.Link>
             <Nav.Link href="/appointments">Appointments</Nav.Link>
+            <Nav.Link href="/artists">Artists</Nav.Link>
             <NavDropdown title="Session" id="basic-nav-dropdown">
               <NavDropdown.Item href="/login">LogIn</NavDropdown.Item>
               <NavDropdown.Item href="/register">

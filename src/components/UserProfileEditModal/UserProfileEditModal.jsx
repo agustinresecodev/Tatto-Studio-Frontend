@@ -8,11 +8,15 @@ import { CustomInput } from '../CustomInput/CustomInput';
 
 
 
-export const  UserProfileEditModal = (profileData, inputHandler, token) => {
-  const [show, setShow] = useState(false);
-  
-  const [userBackup, setUserBackup] = useState({});
 
+export const  UserProfileEditModal = ({profileData,inputHandler,token}) => {
+  const [show, setShow] = useState(false);
+  //console.log(profileData, "profileData")
+  const [userBackup, setUserBackup] = useState({});
+  const [userTest, setUserTest] = useState({});
+  //console.log(props.inputHandler, "props")
+  //console.log(props.token, "props")
+  //console.log(props, "props")
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -28,7 +32,7 @@ export const  UserProfileEditModal = (profileData, inputHandler, token) => {
   
   };
 
-    console.log(inputHandler, "inputHandler")
+    //console.log(inputHandler, "inputHandler")
   
 
   const handleShow = () => setShow(true);
@@ -46,29 +50,24 @@ export const  UserProfileEditModal = (profileData, inputHandler, token) => {
 
   }
   
-
+ 
   const myPassport = JSON.parse(sessionStorage.getItem('passport'));
     
 
-    useEffect(()=>{
-        
-        setTimeout(() => {
+    useEffect(()=>{   
              const fetchProfile = async () => {
-                const response = await bringProfileCall(myPassport.token);
-                
-                
-                setUserBackup(response)
-                
-                
+                const response = await bringProfileCall(myPassport.token);                
+                setUserBackup(response)                
             }
             fetchProfile()
             
               
-        }, 3000);
         
         
-    },[userBackup])
+        
+    },[])
 
+    
   return (
     <>
       <Button variant="primary" onClick={handleShow}>
@@ -85,9 +84,9 @@ export const  UserProfileEditModal = (profileData, inputHandler, token) => {
                         <CustomInput
                           titleProp={"First Name"} 
                           typeProp="text"
-                          nameProp="FirstName"
-                          placeholderProp={userBackup.data?.firstName}
-                          value={profileData.firstName} 
+                          nameProp="firstName"
+                          value={profileData.firstName}
+                          placeholderProp={userBackup.data?.firstName}                          
                           isDisabled=""
                           handlerProp={inputHandler}  
                         />
@@ -96,7 +95,7 @@ export const  UserProfileEditModal = (profileData, inputHandler, token) => {
                         <CustomInput 
                           titleProp={"Last Name"}
                           typeProp="text"
-                          nameProp="LastName"
+                          nameProp="lastName"
                           placeholderProp={userBackup.data?.lastName}
                           handlerProp={inputHandler}  
                         />
@@ -112,7 +111,7 @@ export const  UserProfileEditModal = (profileData, inputHandler, token) => {
                         <CustomInput 
                           titleProp={"Phone"}
                           typeProp="text"
-                          nameProp="Phone"
+                          nameProp="phone"
                           placeholderProp={userBackup.data?.phone}
                           handlerProp={inputHandler}  
                         />

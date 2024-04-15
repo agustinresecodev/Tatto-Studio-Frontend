@@ -84,3 +84,12 @@ export const updateProfileCall = async (data, token) => {
  
   return res
 }
+
+
+export const getArtistsCall = async () => {
+ 
+
+  const res = await axios.get(`${baseURL}artists`)
+
+  return res
+}

@@ -22,7 +22,7 @@ export const UserJobdates = () =>{
     
     
 },[])
-    
+    console.log(jobdates);
     return(
 
         <div className="container" id="tableContainer">

@@ -31,8 +31,8 @@ export const UserProfile = () => {
              const fetchProfile = async () => {
                 const response = await bringProfileCall(myPassport.token);
                 
-                setUserData(response)
-                setUserBackup(response)
+                setProfileData(response.data)
+                setUserBackup(response.data)
 
                 
             }
@@ -51,23 +51,23 @@ export const UserProfile = () => {
             <div className="row">
                 <div className="col-md-12">
                     <div className="row">
-                    { userData.data ?(
+                    { profileData.id ?(
                         <>
                         <div className="col-md-4">
                             <img src={foto} alt="foto" className="img-fluid img-thumbnail"/>
                         </div>
                         <div className="col-md-6">
                             <div className="row">
-                                Name: {userData.data?.firstName}
+                                Name: {profileData.firstName}
                             </div>
                             <div className="row">
-                                Surname: {userData.data?.lastName}
+                                Surname: {profileData.lastName}
                             </div>
                             <div className="row">
-                                Phone: {userData.data?.phone}
+                                Phone: {profileData.phone}
                             </div>
                             <div className="row">
-                                Email: {userData.data?.email}
+                                Email: {profileData.email}
                             </div>
                             <div className="row">
                                 <UserProfileEditModal
