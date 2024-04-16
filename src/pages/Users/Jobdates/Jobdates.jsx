@@ -2,6 +2,9 @@
 import { bringMyAppointmentsCall } from "../../../services/apiCall";
 import { useEffect, useState } from "react";
 import "./Jobdates.css";
+import { useSelector } from "react-redux";
+import { getUserData } from "../../../components/Slicers/userSlicer";
+import { useNavigate } from "react-router-dom";
 
 export const UserJobdates = () =>{
 
@@ -9,10 +12,13 @@ export const UserJobdates = () =>{
 
     const [jobdates, setJobdates] = useState([]);
 
+     //leemos el estado de userSlice
+    const userData = useSelector(getUserData)
+    
     useEffect(()=>{
         setTimeout(() => {
         const fetchJobdates = async () => {
-            const response = await bringMyAppointmentsCall(myPassport.token);
+            const response = await bringMyAppointmentsCall(userData.token);
             setJobdates(response.data)
             
         }
@@ -22,7 +28,27 @@ export const UserJobdates = () =>{
     
     
 },[])
-    console.log(jobdates);
+
+
+
+ //instanciamos el hook de navegación
+ const navigate = useNavigate();
+
+
+    
+ 
+ //si el token está vacío, redirigimos a login
+ useEffect(
+     ()=>{
+         if(userData.token === ""){
+             navigate("/login")
+         }
+     }
+ ) 
+ //si el token no esta vacio, mostramos el componente UserProfil
+
+
+
     return(
 
         <div className="container" id="tableContainer">

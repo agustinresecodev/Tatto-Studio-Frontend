@@ -43,8 +43,6 @@ const NavbarTest = () => {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/profile">Profile</Nav.Link>
-            <Nav.Link href="/appointments">Appointments</Nav.Link>
             <Nav.Link href="/artists">Artists</Nav.Link>
            
               
@@ -53,10 +51,13 @@ const NavbarTest = () => {
                     <Nav.Link href="/login">LogIn</Nav.Link>
                     <Nav.Link href="/register">Register</Nav.Link>
                   </>              
-                ):(
+                ):(<>
+                  <Nav.Link href="/profile">Profile</Nav.Link>
+                  <Nav.Link href="/appointments">Appointments</Nav.Link>
                   <NavDropdown title={userData.decodificado.userName} id="basic-nav-dropdown">                  
                     <NavDropdown.Item onClick={()=>logoutUser()}>LogOut</NavDropdown.Item>
-                  </NavDropdown>  
+                  </NavDropdown>
+                  </>  
                 )}
                 
               
