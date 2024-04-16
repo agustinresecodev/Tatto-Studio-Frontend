@@ -51,12 +51,13 @@ const NavbarTest = () => {
                     <Nav.Link href="/login">LogIn</Nav.Link>
                     <Nav.Link href="/register">Register</Nav.Link>
                   </>              
-                ):(<>
-                  <Nav.Link href="/profile">Profile</Nav.Link>
-                  <Nav.Link href="/appointments">Appointments</Nav.Link>
-                  <NavDropdown title={userData.decodificado.userName} id="basic-nav-dropdown">                  
-                    <NavDropdown.Item onClick={()=>logoutUser()}>LogOut</NavDropdown.Item>
-                  </NavDropdown>
+                ):(
+                  <>
+                    <Nav.Link href="/profile">Profile</Nav.Link>
+                    <Nav.Link href="/appointments">Appointments</Nav.Link>
+                    <NavDropdown title={userData.decodificado.userName} id="basic-nav-dropdown">                  
+                      <NavDropdown.Item onClick={()=>logoutUser()}>LogOut</NavDropdown.Item>
+                    </NavDropdown>
                   </>  
                 )}
                 

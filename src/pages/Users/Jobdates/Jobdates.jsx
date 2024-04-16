@@ -5,6 +5,7 @@ import "./Jobdates.css";
 import { useSelector } from "react-redux";
 import { getUserData } from "../../../components/Slicers/userSlicer";
 import { useNavigate } from "react-router-dom";
+import { JobdateTable } from "../../../components/JobdateTable/JobdateTable";
 
 export const UserJobdates = () =>{
 
@@ -51,37 +52,19 @@ export const UserJobdates = () =>{
 
     return(
 
-        <div className="container" id="tableContainer">
+        <div className="container">
             <div className="row">
                 <div className="col-md-12">
                     
                     {jobdates.map((element) => {
                         return(
-                        <div key={element.id} className="row tableRow" >
-                            <div key={element.id+1} className="row">
-                                <div  className="col-md-12">
-                                    Fecha: {element.day_date}
-                                </div>
-                                <div key={element.id+2} className="col-md-4">
-                                    Cliente: {element.client.user.firstName}
-                                </div>
-                                <div key={element.id+3} className="col-md-4">
-                                    Telefono: {element.client.user.phone}
-                                </div>
-                                <div key={element.id+4} className="col-md-6">
-                                    email: {element.client.user.email}
-                                </div>
-                                
-                            </div>
-                            <div key={element.id+5} className="row">
-                            <div key={element.id+5} className="col-md-6">
-                                    boton editar
-                                </div>
-                                <div key={element.id+6} className="col-md-6">
-                                    boton eliminar
-                                </div>
-                            </div>
-                        </div>   
+                            //element.id  element.day_date element.client.user.firstName element.client.user.phone element.client.user.email
+                        <JobdateTable 
+                            key={element.id}  
+                            date={element.day_date} 
+                            client_name={element.client.user.firstName} 
+                            client_phone={element.client.user.phone} 
+                            client_email={element.client.user.email}/> 
                         )
                         
                     })
