@@ -3,9 +3,38 @@ import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import "./Navbar.css";
+
+import { useSelector, useDispatch } from 'react-redux';
+import userSlicer from '../Slicers/userSlicer';
+import { logout, getUserData } from '../Slicers/userSlicer';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+
+
 const NavbarTest = () => {
+
+  //INSTANCIA DE REDUX EN MODO LECTURA
+  const userData = useSelector(getUserData);
+  
+  //INSTANCIA DE REDUX EN MODO ESCRITURA
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    console.log(userData,"soy el slice de user")
+  },[userData])
+
+  //instanciamos el hook de navegación
+  const navigate = useNavigate();
+
+  const userName = userData.decodificado.userName;
+  console.log(userName)
+  //funcion logout
+  const logoutUser = () => {
+    dispatch(logout())
+    //navigate("/");
+  }
+
   return (
     <Navbar expand="lg" bg='dark' data-bs-theme='dark' className="bg-body-tertiary align-content-begin">
       <Container>
@@ -17,12 +46,29 @@ const NavbarTest = () => {
             <Nav.Link href="/profile">Profile</Nav.Link>
             <Nav.Link href="/appointments">Appointments</Nav.Link>
             <Nav.Link href="/artists">Artists</Nav.Link>
-            <NavDropdown title="Session" id="basic-nav-dropdown">
-              <NavDropdown.Item href="/login">LogIn</NavDropdown.Item>
-              <NavDropdown.Item href="/register">
-                Register
-              </NavDropdown.Item>
-            </NavDropdown>
+           
+              
+                {userData.token === "" ?(
+                  <>
+                    <Nav.Link href="/login">LogIn</Nav.Link>
+                    <Nav.Link href="/register">Register</Nav.Link>
+                  </>              
+                ):(
+                  <NavDropdown title={userData.decodificado.userName} id="basic-nav-dropdown">                  
+                    <NavDropdown.Item onClick={()=>logoutUser()}>LogOut</NavDropdown.Item>
+                  </NavDropdown>  
+                )}
+                
+              
+
+
+              
+              
+          
+            
+           
+            
+
           </Nav>
         </Navbar.Collapse>
       </Container>

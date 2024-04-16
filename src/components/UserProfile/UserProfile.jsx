@@ -3,11 +3,11 @@ import { useEffect, useState } from "react";
 import "./UserProfile.css";
 import { bringProfileCall } from "../../services/apiCall";
 import foto from "../../assets/img/user/user.png"
-import { ButtonC } from "../ButtonC/ButtonC";
 import { UserProfileEditModal } from "../UserProfileEditModal/UserProfileEditModal";
+import { useSelector } from "react-redux";
+import { getUserData } from "../Slicers/userSlicer";
 
 export const UserProfile = () => {
-    const [userData, setUserData] = useState({});
     const [userBackup, setUserBackup] = useState({});
     const myPassport = JSON.parse(sessionStorage.getItem('passport'));
 
@@ -17,6 +17,8 @@ export const UserProfile = () => {
         phone: "",
         email: "",
     });
+
+    const userData = useSelector(getUserData);
 
     const inputHandler = (e) => {
         setProfileData((prevState) => ({
@@ -28,13 +30,11 @@ export const UserProfile = () => {
     useEffect(()=>{
         
         setTimeout(() => {
-             const fetchProfile = async () => {
-                const response = await bringProfileCall(myPassport.token);
-                
-                setProfileData(response.data)
-                setUserBackup(response.data)
-
-                
+             const fetchProfile = async () => {                
+                    const response = await bringProfileCall(userData.token);                    
+                    setProfileData(response.data)
+                    setUserBackup(response.data)
+                                               
             }
             fetchProfile()
               
@@ -74,7 +74,7 @@ export const UserProfile = () => {
                                 profileData={profileData}
                                 inputHandler={inputHandler}
                                 
-                                token={myPassport.token} />
+                                token={userData.token} />
 
                             </div>
 

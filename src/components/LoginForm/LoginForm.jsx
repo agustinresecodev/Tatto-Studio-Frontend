@@ -85,9 +85,7 @@ export const LoginForm = () => {
                     </form>
                 </div>
             </div>
-            <div className="row">
-                Already registered? Then <a href="/login">Login </a>
-            </div>
+            
 
             
           </div>

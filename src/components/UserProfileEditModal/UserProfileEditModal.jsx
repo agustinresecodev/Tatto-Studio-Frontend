@@ -5,6 +5,8 @@ import { useNavigate } from 'react-router-dom';
 import { bringProfileCall } from '../../services/apiCall';
 import { updateProfileCall } from '../../services/apiCall';
 import { CustomInput } from '../CustomInput/CustomInput';
+import { useSelector } from 'react-redux';
+import { getUserData } from '../Slicers/userSlicer';
 
 
 
@@ -51,7 +53,7 @@ export const  UserProfileEditModal = ({profileData,inputHandler,token}) => {
   }
   
  
-  const myPassport = JSON.parse(sessionStorage.getItem('passport'));
+  const myPassport = useSelector(getUserData);
     
 
     useEffect(()=>{   
