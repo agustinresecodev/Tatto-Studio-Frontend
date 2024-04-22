@@ -13,12 +13,10 @@ import { getUserData } from '../Slicers/userSlicer';
 
 export const  UserProfileEditModal = ({profileData,inputHandler,token}) => {
   const [show, setShow] = useState(false);
-  //console.log(profileData, "profileData")
+  
   const [userBackup, setUserBackup] = useState({});
   const [userTest, setUserTest] = useState({});
-  //console.log(props.inputHandler, "props")
-  //console.log(props.token, "props")
-  //console.log(props, "props")
+  
   const navigate = useNavigate();
 
   const handleClose = () => {
@@ -34,8 +32,6 @@ export const  UserProfileEditModal = ({profileData,inputHandler,token}) => {
   
   };
 
-    //console.log(inputHandler, "inputHandler")
-  
 
   const handleShow = () => setShow(true);
 

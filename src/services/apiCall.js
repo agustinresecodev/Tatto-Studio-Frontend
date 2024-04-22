@@ -73,6 +73,7 @@ export const bringMyAppointmentsCall = async (token) => {
     return res
 }
 
+//update profile
 export const updateProfileCall = async (data, token) => {
   const config = {
     headers: {
@@ -85,11 +86,23 @@ export const updateProfileCall = async (data, token) => {
   return res
 }
 
-
+//get all artists
 export const getArtistsCall = async () => {
  
 
   const res = await axios.get(`${baseURL}artists`)
 
   return res
+}
+
+//delete user
+
+export const deleteUserCall = async (id, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const res = await axios.delete(`${baseURL}users/delete/${id}`, config)
 }

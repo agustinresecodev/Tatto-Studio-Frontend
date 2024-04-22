@@ -35,6 +35,7 @@ const NavbarTest = () => {
     //navigate("/");
   }
 
+  console.log(userData.decodificado)
   return (
     <Navbar expand="lg" bg='dark' data-bs-theme='dark' className="bg-body-tertiary align-content-begin">
       <Container>
@@ -53,6 +54,9 @@ const NavbarTest = () => {
                   </>              
                 ):(
                   <>
+                    {userData.decodificado.userRole === "admin" ? (
+                      <Nav.Link href="/admin">Admin</Nav.Link>
+                    ) : null}
                     <Nav.Link href="/profile">Profile</Nav.Link>
                     <Nav.Link href="/appointments">Appointments</Nav.Link>
                     <NavDropdown title={userData.decodificado.userName} id="basic-nav-dropdown">                  
