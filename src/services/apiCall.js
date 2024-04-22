@@ -60,6 +60,17 @@ export const bringAllUsersCall = async (token) => {
     return res
 }
 
+// Get user by ID
+export const bringUserByIdCall = async (id, token) => {
+    const config ={
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    const res =  await axios.get(`${baseURL}users/get/${id}`, config);
+    return res
+}
+
 // Get all appointments
 export const bringMyAppointmentsCall = async (token) => {
     const config ={
@@ -86,6 +97,16 @@ export const updateProfileCall = async (data, token) => {
   return res
 }
 
+//update user profile by admin
+export const updateUserProfileCall = async (data, token,id) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const res = await axios.put(`${baseURL}users/edit/${id}`, data, config)
+}
 //get all artists
 export const getArtistsCall = async () => {
  
