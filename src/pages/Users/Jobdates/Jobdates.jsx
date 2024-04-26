@@ -41,7 +41,7 @@ export const UserJobdates = () =>{
  //si el token está vacío, redirigimos a login
  useEffect(
      ()=>{
-         if(userData.token === ""){
+         if(userData.token === "" ){
              navigate("/login")
          }
      }
@@ -53,6 +53,13 @@ export const UserJobdates = () =>{
     return(
 
         <div className="container">
+            <div className="row">
+                <div className="col-md-12">
+                    <a href="/appointments/create">
+                        <h1>Create appointments</h1>
+                    </a>                    
+                </div>
+            </div>
             <div className="row">
                 <div className="col-md-12">
                     

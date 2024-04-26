@@ -143,3 +143,15 @@ export const deleteUserCall = async (id, token) => {
 
   const res = await axios.delete(`${baseURL}users/delete/${id}`, config)
 }
+
+//Get all clients
+export const getAllClients = async (token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const res = await axios.get(`${baseURL}users/clients`, config)
+  return res
+}

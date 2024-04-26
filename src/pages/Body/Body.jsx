@@ -7,6 +7,7 @@ import { UserJobdates } from "../Users/Jobdates/Jobdates"
 import { Artists } from "../Users/Artists/Artists"
 import AdminPage from "../Admin/AdminPage"
 import { AdminUsers } from "../Admin/Users/AdminUsers"
+import CreateJobdate from "../Users/Jobdates/CreateJobdate/CreateJobdate"
 
 
 export const Body = () => {
@@ -21,6 +22,7 @@ export const Body = () => {
             <Route path="/artists" element={<Artists/>} />
             <Route path="/admin" element={<AdminPage/>} />
             <Route path="/admin/users" element={<AdminUsers/>} />
+            <Route path="/appointments/create" element={<CreateJobdate/>} />
         </Routes>
     )
 }

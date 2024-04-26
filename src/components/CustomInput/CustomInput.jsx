@@ -22,5 +22,6 @@ export const CustomInput = ({
     />
   );
 };
+export default CustomInput;
 // props, properties, propiedades, se reciben como un objeto
 // <CustomInput type="email" name="emailInput" placeholder="introduce tu email..." />

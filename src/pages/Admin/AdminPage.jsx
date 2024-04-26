@@ -57,21 +57,43 @@ export const AdminPage = () => {
                             
                                 {appointments.map((element) => {
                                     return(
-                                       <div key={element.id}> 
+                                       <div key={element.id} className="sectionContainer"> 
                                        <div>id {element.id}</div>
-                                        <div>
-                                        artista 
-                                            {element.artist.user.firstName} 
-                                            {element.artist.user.lastName}
-                                            {element.artist.user.phone}
-                                            {element.artist.user.email}
+                                       
+                                        <div className="col-12 sectionContainer">
+                                            <div className="row">
+                                            <h4>Artista </h4>
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-3">
+                                                    <label>Nombre: </label>
+                                                    {element.artist.user.firstName}
+                                                </div>
+                                                <div className="col-3">
+                                                    <label>Apellido:  </label> 
+                                                    {element.artist.user.lastName}
+                                                </div>
+                                                <div className="col-3">
+                                                    <label>Telefono: </label>
+                                                    {element.artist.user.phone}
+                                                </div>
+                                                <div className="col-12 col-3">
+                                                    <label>Email: </label>
+                                                    {element.artist.user.email}
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div>
-                                        cliente
-                                            {element.client.user.firstName}
-                                            {element.client.user.lastName}
-                                            {element.client.user.phone}
-                                            {element.client.user.email}
+                                        <div className="col-12 sectionContainer">
+                                            <div className="row">
+                                                <h4>Cliente</h4>    
+                                            </div>
+                                            <div className="row">
+                                                <div className="col-3">Nombre: {element.client.user.firstName}</div>
+                                                <div className="col-3">Apellido: {element.client.user.lastName}</div>
+                                                <div className="col-3">Telefono: {element.client.user.phone}</div>
+                                                <div className="col-12">Email: {element.client.user.email}</div> 
+                                            </div>
+                                                                                                                                                                               
                                         </div>
                                         <div>
                                             fecha
