@@ -155,3 +155,33 @@ export const getAllClients = async (token) => {
   const res = await axios.get(`${baseURL}users/clients`, config)
   return res
 }
+
+//get artist by ID
+export const getArtistByUserId = async (id,token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+  const res = await axios.get(`${baseURL}artists/get/${id}`, config)
+  return res
+}
+
+
+//get all artist
+export const getAllArtists = async () => {
+  const res = await axios.get(`${baseURL}artists/`)
+  return res
+}
+
+//create appointment
+export const createAppointmentCall = async (data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const res = await axios.post(`${baseURL}jobdates/create`, data, config)
+  return res
+}
