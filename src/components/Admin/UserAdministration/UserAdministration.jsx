@@ -21,7 +21,7 @@ export const   UsersAdministration = () => {
         lastName: "",
         phone: "",
         email: "",
-        isActive: null,
+        role_id: "",
         
     });
     const [userBackup, setUserBackup] = useState({});
@@ -91,6 +91,7 @@ export const   UsersAdministration = () => {
         const usersResults = async() =>{
             const response = await bringAllUsersCall(userData.token);
             setUsers(response.data)
+            console.log(response)
             
         
         } 
@@ -103,6 +104,14 @@ export const   UsersAdministration = () => {
           [e.target.name]: e.target.value,
         }));
       };
+
+    const activeHandler = (e) => {
+        setProfileData((prevState) => ({
+          ...prevState,
+          isActive: e.target.checked,
+        }));
+      }
+    
     
     // Si no hay usuarios, muestra un mensaje de carga
     if(users.length === 0){
@@ -187,8 +196,29 @@ export const   UsersAdministration = () => {
                                             placeholderProp={userBackup.phone}
                                             handlerProp={inputHandler}  
                                             />
-
-                                            <input type="checkbox" title="IsActive" name="isActive" value="true" checked={profileData.isActive === true ? true : null}/>
+                                            
+                                            <div>
+                                                <label htmlFor="role">Role </label>
+                                                <select name="role" id="role" onClick={inputHandler}>
+                                                    {user.role.name === "admin" ? (
+                                                        <option defaultValue="1" value="1" selected="true">Admin</option>
+                                                    ):(
+                                                        <option defaultValue="1" value="1">Admin</option>)
+                                                        }
+                                                    {user.role.name === "artist" ? (
+                                                        <option defaultValue="2" value="2" selected="true">Artist</option>
+                                                    ):(
+                                                        <option defaultValue="2" value="2">Artist</option>)
+                                                        }
+                                                    {user.role.name === "client" ? (
+                                                        <option defaultValue="3" value="3" selected="true">Client</option>
+                                                    ):(
+                                                        <option defaultValue="3" value="3">Client</option>)
+                                                        }
+                                                    
+                                                </select>
+                                            </div>
+                                            
                                             
                                                 
                                             </form>
