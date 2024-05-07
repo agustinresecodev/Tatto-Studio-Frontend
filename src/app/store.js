@@ -4,11 +4,13 @@ import storage from "redux-persist/lib/storage";
 import persistReducer from "redux-persist/es/persistReducer";
 import { configureStore } from "@reduxjs/toolkit";
 import { thunk } from "redux-thunk";
+import { appointmentSlicer } from "../components/Slicers/appointmentSlicer";
 
 
 // defino los pasillos que tendrá mi almacén (importante crear los archivos correspondientes)
 const reducers = combineReducers({
     user: userSlicer,
+    appointment: appointmentSlicer,
    
 });
 

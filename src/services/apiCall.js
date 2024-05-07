@@ -185,3 +185,28 @@ export const createAppointmentCall = async (data, token) => {
   const res = await axios.post(`${baseURL}jobdates/create`, data, config)
   return res
 }
+
+
+//edit appointment call
+export const editAppointmentCall = async (data, token, id) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const res = await axios.put(`${baseURL}jobdates/${id}`, data, config)
+  return res
+}
+
+//delete appointment
+export const deleteAppointmentCall = async (id, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  }
+
+  const res = await axios.delete(`${baseURL}jobdates/${id}`, config)
+  return res
+}

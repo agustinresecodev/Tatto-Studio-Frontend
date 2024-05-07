@@ -15,9 +15,9 @@
 .tableRow{
     border: solid 0.1em black;
     border-color: black;
-    background-color: rgb(255, 236, 196);
+    background-color: rgba(19, 42, 48, 0.8);
     margin-bottom: 2em;
-    color: #000000;
+    color: white;
     border-radius: 1em;
     box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.5);
 }
