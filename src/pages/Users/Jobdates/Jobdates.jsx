@@ -1,24 +1,35 @@
-import { bringMyAppointmentsCall, getAllClients,getAllArtists, editAppointmentCall, deleteAppointmentCall } from "../../../services/apiCall";
+import {
+  bringMyAppointmentsCall,
+  getAllClients,
+  getAllArtists,
+  editAppointmentCall,
+  deleteAppointmentCall,
+} from "../../../services/apiCall";
 import { useEffect, useState } from "react";
 import "./Jobdates.css";
-import {  useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { getUserData } from "../../../components/Slicers/userSlicer";
 
 import { Spinner } from "react-bootstrap";
 import dayjs from "dayjs";
-import { Alert } from "react-bootstrap";
+import { Alert, Button } from "react-bootstrap";
+import CustomInput from "../../../components/CustomInput/CustomInput";
 import { ButtonC } from "../../../components/ButtonC/ButtonC";
 import { ModalAppointment } from "../../../components/ModalAppointments/ModalAppointment";
-
-
-
+import { Prev } from "react-bootstrap/esm/PageItem";
+import { set } from "date-fns";
 
 export const UserJobdates = () => {
+  //Constantes para filtro de fechas
+  const [dayFilter, setDayFilter] = useState("");
+  const [daysfiltered, setDaysFiltered] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [noResult, setNoResult] = useState(false);
+
   const [show, setShow] = useState(false);
   const [showDelete, setShowDelete] = useState(false);
   const [client, setClient] = useState("");
   const [selected, setSelected] = useState(null);
-
 
   //Constantes para filtro de artistas
   const [artists, setArtists] = useState("");
@@ -35,8 +46,7 @@ export const UserJobdates = () => {
 
   //constante para mostrar alerta de borrado
   const [areYouDeletingMe, setAreYouDeletingMe] = useState(null);
-  
-  
+
   const [msg, setMsg] = useState("");
   const [jobdates, setJobdates] = useState([]);
   const [selectedAppointment, setSelectedAppointment] = useState({
@@ -73,8 +83,6 @@ export const UserJobdates = () => {
     description: "",
     artist: 0,
   });
-
-
 
   // useEffect que traerá todos los clientes
   useEffect(() => {
@@ -191,19 +199,14 @@ export const UserJobdates = () => {
     setAppointmentData({
       ...appointmentData,
       day_date: dayjs(e).format("YYYY-MM-DD"),
-      
     });
     console.log(appointmentData);
   };
 
-
-
   //handler de cierre
   const handleClose = () => {
-    setShow(false)
-    setAreYouDeletingMe(null)
-  
-  
+    setShow(false);
+    setAreYouDeletingMe(null);
   };
 
   //handler de apertura del modal
@@ -236,10 +239,9 @@ export const UserJobdates = () => {
       const response = await bringMyAppointmentsCall(userData.token);
       setJobdates(response.data);
       console.log("Cita Eliminada");
-      setShow(false)
+      setShow(false);
     } catch (error) {
       console.log("Error borrando cita:" + error);
-
     }
   };
 
@@ -252,11 +254,46 @@ export const UserJobdates = () => {
       const fetchJobdates = async () => {
         const response = await bringMyAppointmentsCall(userData.token);
         setJobdates(response.data);
+        setDaysFiltered(response.data);
       };
       fetchJobdates();
-      console.log(jobdates);
     }, 3000);
   }, []);
+
+  //useEffect hará filtradas por fecha
+
+  useEffect(() => {
+    // debouncing (esperar a dejar de teclear para lanzar la petición)
+
+    setIsSearching(true);
+    if (dayFilter !== "") {
+      // preparamos un setTimeout que se ejecutará al cabo de un segundo con una llamada a la API (en este caso filtrado en front del array)
+
+      const filterTimer = setTimeout(() => {
+        // filtramos el array de citas
+        const foundDates = jobdates.filter((appointment) => {
+          return appointment.day_date.includes(dayFilter);
+        });
+
+        console.log("foundDates", foundDates);
+
+        if (foundDates.length > 0) {
+          console.log("foundDates", foundDates);
+          setDaysFiltered(foundDates);
+        } else {
+          setDaysFiltered([]);
+          setIsSearching(false);
+          setNoResult(true);
+          // si al menos un personaje cumple el filtro, lo seteamos, else lo vaciamos
+        }
+      }, 1000);
+
+      // preparamos el botón que cancelará el setTimeout preparado anteriormente cuando se desmonte el componente actual (Characters)
+      // O SE DISPARE DE NUEVO EL USE EFFECT, de manera que creamos un bucle crear temporizador -> preparar cancelación -> cancelar + crear temporizador
+      return () => clearTimeout(filterTimer);
+    } else {
+    }
+  }, [dayFilter]);
 
   //handler de los clientes
   const clientHandler = (e) => {
@@ -268,16 +305,20 @@ export const UserJobdates = () => {
     console.log(appointmentData);
   };
 
-  
-
   const handlerProp = (e) => {
     setAppointmentData({
-        ...appointmentData,
-        [e.target.name]: e.target.value
+      ...appointmentData,
+      [e.target.name]: e.target.value,
     });
     console.log(appointmentData);
-    
-}
+  };
+
+  //handler de filtro de fechas
+  const handlerDayFilter = (e) => {
+    console.log(e.target.value);
+    setDayFilter(e.target.value);
+    console.log(dayFilter);
+  };
 
   //handler de los artistas
   const artistHandler = (e) => {
@@ -287,45 +328,54 @@ export const UserJobdates = () => {
       ...appointmentData,
       artist: e.target.id,
     });
-    console.log(appointmentData);
   };
 
   //funcion que llama a la api para editar una cita
 
   const editAppointment = async () => {
     try {
-      await editAppointmentCall(appointmentData, userData.token, selectedAppointment.id);
+      await editAppointmentCall(
+        appointmentData,
+        userData.token,
+        selectedAppointment.id
+      );
       console.log("Cita editada");
-      setShow(false)
+      setShow(false);
     } catch (error) {
       console.log("Error editando cita:" + error);
-
     }
-  }
+  };
 
-// Función que inicia el borrado del usuario y muestra u oculta el botón de confirmación 
-const deleteUserStepOne = (id) => {
-  console.log(id)
-  if (areYouDeletingMe === id) {
+  // Función que inicia el borrado del usuario y muestra u oculta el botón de confirmación
+  const deleteUserStepOne = (id) => {
+    console.log(id);
+    if (areYouDeletingMe === id) {
       setAreYouDeletingMe(null);
-  } else {
-  setShowDelete(true);
-  setAreYouDeletingMe(id);
+    } else {
+      setShowDelete(true);
+      setAreYouDeletingMe(id);
 
-  console.log(areYouDeletingMe);
-  }   
-};
-
-
-
-
+      console.log(areYouDeletingMe);
+    }
+  };
 
   if (jobdates.length === 0) {
     return (
       <div className="container align-center tableRow">
-        <Spinner animation="border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </Spinner>
+        <div className="row">
+          <div className="col-md-12 tableRow">
+            <a href="/appointments/create">
+              <h1>Create appointments</h1>
+            </a>
+          </div>
+        </div>
+        {isSearching ? (
+          <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </Spinner>
+        ) : noResult ? (
+          <p>No results found</p>
+        ) : null}
       </div>
     );
   } else {
@@ -336,11 +386,17 @@ const deleteUserStepOne = (id) => {
             <a href="/appointments/create">
               <h1>Create appointments</h1>
             </a>
+            <h3>Search a date</h3>
+            <CustomInput
+              typeProp="date"
+              nameProp="dayfilter"
+              handlerProp={handlerDayFilter}
+            />
           </div>
         </div>
         <div className="row">
           <div className="col-md-12">
-            {jobdates.map((element) => {
+            {daysfiltered.map((element) => {
               return (
                 //element.id  element.day_date element.client.user.firstName element.client.user.phone element.client.user.email
                 <div key={element.id} className="row tableRow">
@@ -367,51 +423,51 @@ const deleteUserStepOne = (id) => {
                       />
                     </div>
                     <div className="col-md-6">
-                    <ButtonC
+                      <ButtonC
                         title={"Eliminar"}
                         className={"regularButtonClass"}
                         functionEmit={() => {
-                          deleteUserStepOne(element.id)
-                          console.log(element)
+                          deleteUserStepOne(element.id);
+                          console.log(element);
                         }}
-                    />
+                      />
                     </div>
                   </div>
-                  <Alert variant="danger" show={areYouDeletingMe===element.id ?true:null}>
+                  <Alert
+                    variant="danger"
+                    show={areYouDeletingMe === element.id ? true : null}
+                  >
                     <p>Are you sure to delete?</p>
                     <ButtonC
-                        title={"Eliminar"}
-                        className={"regularButtonClass"}
-                        functionEmit={() => {
-                          handlerDelete(element.id-1);
-                        }}
+                      title={"Eliminar"}
+                      className={"regularButtonClass"}
+                      functionEmit={() => {
+                        handlerDelete(element.id - 1);
+                      }}
                     />
                   </Alert>
-
                 </div>
-
               );
             })}
           </div>
         </div>
-          <ModalAppointment
-            appointmentData={appointmentData}
-            show={show}
-            handleClose={handleClose}
-            handlerProp={handlerProp}
-            filteredClients={filteredClients}
-            filteredArtists={filteredArtists}
-            artistFilterHandler={artistFilterHandler}
-            clientFilterHandler={clientFilterHandler}
-            selected={selected}
-            msg={msg}
-            userData={userData}
-            editAppointment={editAppointment}
-            manageTime={manageTime}
-            clientHandler={clientHandler}
-            artistHandler={artistHandler}
-          ></ModalAppointment>
-        
+        <ModalAppointment
+          appointmentData={appointmentData}
+          show={show}
+          handleClose={handleClose}
+          handlerProp={handlerProp}
+          filteredClients={filteredClients}
+          filteredArtists={filteredArtists}
+          artistFilterHandler={artistFilterHandler}
+          clientFilterHandler={clientFilterHandler}
+          selected={selected}
+          msg={msg}
+          userData={userData}
+          editAppointment={editAppointment}
+          manageTime={manageTime}
+          clientHandler={clientHandler}
+          artistHandler={artistHandler}
+        ></ModalAppointment>
       </div>
     );
   }
